@@ -24,32 +24,62 @@
 #define         err_exit(s) do { perror(s); exit(EXIT_FAILURE); \
                                 } while (0)
 
+int
+phi(int n);
 bool
 sieve_of_eratosthenes(size_t min, size_t max, size_t* p, size_t* q);
 size_t
 product_of_primes(size_t min, size_t max);
 
+
 int
 main(int argc, char** argv)
 {
-        size_t n;
+        size_t n, e;
 
         n = product_of_primes(PRIME_RANGE_MIN, PRIME_RANGE_MAX);
         if (n == 0)
                 err_exit("* product of primes was 0");
 
+        e = phi(n);
+
         // pick random number e such that
-        // 1 < e < totient(n)
-        // e is coprime with totient(n)
+        // 1 < e < Φ(n)
+        // e is coprime with Φ(n)
         ;
 
-        // compute d the modular multiplicitive inverse of e(mod totient(n))
+        // compute d the modular multiplicitive inverse of e(mod Φ(n))
+        // if n and e are coprime (or relatively prime) positive integers, then
+        // aΦ(n) ≡ 1 (mod n) 
         ;
 
         // public key = (n, e)
         // private key = (n, d)
         ;
 }
+
+
+int
+phi(int n)
+{
+        float result;
+
+        result = n;
+        for (int p = 2; p * p <= n; ++p) {
+                if (n % p == 0) {
+                        while (n % p == 0) {
+                                n /= p;
+                        }
+                        result *= (1.0 - (1.0 / (float)p));
+                }
+        }
+
+        if (n > 1)
+                result *= (1.0 - (1.0 / (float)n));
+
+        return (int)result;
+}
+
 
 size_t
 product_of_primes(size_t min, size_t max)
@@ -60,6 +90,7 @@ product_of_primes(size_t min, size_t max)
                 return 0;
         return p * q;
 }
+
 
 bool
 sieve_of_eratosthenes(size_t min, size_t max, size_t* p, size_t* q)
@@ -98,6 +129,7 @@ sieve_of_eratosthenes(size_t min, size_t max, size_t* p, size_t* q)
                 q_index = rand() % sz;
         *p = prime_list[p_index];
         *q = prime_list[q_index];
+        printf("(%d, %d)\n", *p, *q);
 
         return true;
 }
