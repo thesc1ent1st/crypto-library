@@ -21,7 +21,7 @@
 #include <unistd.h>
 
 #define         TIME_DELTA 1
-#define         PRIME_RANGE_MIN 500 
+#define         PRIME_RANGE_MIN 200 
 #define         PRIME_RANGE_MAX 1000
 #define         err_exit(s) do { perror(s); exit(EXIT_FAILURE); \
                                 } while (0)
@@ -31,12 +31,14 @@ bool
 sieve_of_eratosthenes(size_t min, size_t max, size_t* p, size_t* q);
 size_t
 product_of_primes(size_t min, size_t max);
+int
+mod_inverse(int e, int m);
 
 
 int
 main(int argc, char** argv)
 {
-        size_t n, e, blank, phi_n;
+        size_t n, e, d, phi_n;
 
         n = product_of_primes(PRIME_RANGE_MIN, PRIME_RANGE_MAX);
         if (n == 0)
@@ -45,14 +47,39 @@ main(int argc, char** argv)
         phi_n = phi(n);
         sieve_of_eratosthenes(2, phi_n, &e, NULL);
 
-        // compute d the modular multiplicitive inverse of e(mod Φ(n))
-        // if n and e are coprime (or relatively prime) positive integers, then
-        // aΦ(n) ≡ 1 (mod n) 
-        ;
+        d = mod_inverse(e, phi_n);
 
         // public key = (n, e)
         // private key = (n, d)
-        ;
+}
+
+
+int
+mod_inverse(int e, int m)
+{
+        int m0, y, x, q, t;
+
+        if (m == 1)
+                return 0;
+
+        m0 = m;
+        y = 0;
+        x = 1;
+        while (e > 1) {
+                q = e / m;
+                t = m;
+
+                m = e % m, e = t;
+                t = y;
+
+                y = x - q * y;
+                x = t;
+        }
+
+        if (x < 0)
+                x += m0;
+
+        return x;
 }
 
 
