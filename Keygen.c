@@ -18,12 +18,13 @@
 #include <time.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <unistd.h>
 
+#define         TIME_DELTA 1
 #define         PRIME_RANGE_MIN 500 
 #define         PRIME_RANGE_MAX 1000
 #define         err_exit(s) do { perror(s); exit(EXIT_FAILURE); \
                                 } while (0)
-
 int
 phi(int n);
 bool
@@ -35,18 +36,14 @@ product_of_primes(size_t min, size_t max);
 int
 main(int argc, char** argv)
 {
-        size_t n, e;
+        size_t n, e, blank, phi_n;
 
         n = product_of_primes(PRIME_RANGE_MIN, PRIME_RANGE_MAX);
         if (n == 0)
                 err_exit("* product of primes was 0");
 
-        e = phi(n);
-
-        // pick random number e such that
-        // 1 < e < Φ(n)
-        // e is coprime with Φ(n)
-        ;
+        phi_n = phi(n);
+        sieve_of_eratosthenes(2, phi_n, &e, NULL);
 
         // compute d the modular multiplicitive inverse of e(mod Φ(n))
         // if n and e are coprime (or relatively prime) positive integers, then
@@ -103,7 +100,9 @@ sieve_of_eratosthenes(size_t min, size_t max, size_t* p, size_t* q)
                 return false;
 
         memset(prime, true, sizeof(prime));
-        srand(time(0));
+
+        sleep(TIME_DELTA);
+        srand(time(NULL));
 
         for (int p = 2; p * p <= max; p++) {
                 if (prime[p] == true) {
@@ -128,8 +127,8 @@ sieve_of_eratosthenes(size_t min, size_t max, size_t* p, size_t* q)
         while (q_index == p_index)
                 q_index = rand() % sz;
         *p = prime_list[p_index];
-        *q = prime_list[q_index];
-        printf("(%d, %d)\n", *p, *q);
+        if (q != NULL)
+                *q = prime_list[q_index];
 
         return true;
 }
