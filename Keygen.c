@@ -1,15 +1,21 @@
-/* the - scientist@rootstorm.com
- * spl0its-r-us security
- *
- * 100 % of the proceeds that wind up in these accounts will be donated to animal shelters.
- * ================================================================================================================
- * BITCOIN: bc1qc0x6qdsk7auhsrym6vz0rtafnl2qgqjk7yy3tn
- * ETHEREUM : 0x482d85E39Ce865Dcf7c26bFDD6e52AB203d0f555
- * DOGECOIN : DPYxWnnyYzmPYWP92iqo4DizJht3rZnYnu
- * LITECOIN : ltc1qea6ehaanwr9q3jygmw75q35avk8t74h7sc5uc3
- * ETHCLASSIC : 0x6C63D4428Cb6BfDB7AC72b447A8B29D811395052
- * CARDANO : addr1qxn4przua2crcrgwt3pk5465ym3syytfn2v7gssu7ayuvpvefqwdvkgzn4y3j5d5ynsh03kae9k8d0z8yuh8excuv6xqdl4kyt
- * ================================================================================================================
+/* 
+ * A small library for public-key cryptography.
+ * 
+ * Resources:
+ * https://en.wikipedia.org/wiki/Padding_(cryptography)
+ * https://www.rfc-editor.org/rfc/rfc3447
+ * https://www.rfc-editor.org/rfc/rfc8017
+ * https://en.wikipedia.org/wiki/Euler%27s_totient_function
+ * https://en.wikipedia.org/wiki/Euclidean_division#Proof
+ * https://en.wikipedia.org/wiki/Modular_multiplicative_inverse
+ * https://en.wikipedia.org/wiki/Prime_number_theorem
+ * https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
+ * https://en.wikipedia.org/wiki/B%C3%A9zout%27s_identity
+ * https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm
+ * https://en.wikipedia.org/wiki/Diophantine_equation
+ * 
+ * the-scientist@rootstorm.com
+ * https://www.rootstorm.com
  */
 
 #include <stdio.h>
