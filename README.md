@@ -2,7 +2,7 @@
 
 A small library for Asymmetric cryptography, otherwise known as public-key cryptography.
 
-> Self study Resources:
+> self study resource list:
 > * https://en.wikipedia.org/wiki/Padding_(cryptography)
 > * https://www.rfc-editor.org/rfc/rfc3447
 > * https://www.rfc-editor.org/rfc/rfc8017
